@@ -1,0 +1,372 @@
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Subject Schedules</title>
+	<style>
+		body {
+			background-color: #f5f5f5;
+			font-family: Arial, sans-serif;
+		}
+
+		h1 {
+			text-align: center;
+			font-size: 36px;
+			margin-top: 50px;
+			color: #333;
+		}
+
+		.container {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			margin: 50px auto;
+			box-shadow: 0px 0px 10px #888888;
+			padding: 30px;
+			width: 80%;
+		}
+
+		form {
+			width: 100%;
+		}
+
+		.form-group {
+			margin-bottom: 20px;
+		}
+
+		.form-label {
+			display: block;
+			font-size: 18px;
+			margin-bottom: 5px;
+			color: #333;
+		}
+
+		.form-input {
+			display: block;
+			width: 100%;
+			padding: 10px;
+			font-size: 16px;
+			border: 1px solid #ffffff;
+			border-radius: 4px;
+			color: #333;
+		}
+
+		.form-submit {
+			background-color: #f5f5f5;
+			color: #fff;
+			padding: 10px 20px;
+			border: none;
+			border-radius: 4px;
+			font-size: 16px;
+			cursor: pointer;
+			transition: all 0.3s ease;
+		}
+
+		.form-submit:hover {
+			background-color: #152935;
+			box-shadow: 0px 0px 5px #888888;
+		}
+
+		table {
+			width: 80%;
+			margin: 50px auto;
+			background-color: #fff;
+			box-shadow: 0px 0px 10px #888888;
+			border-collapse: collapse;
+		}
+
+		th, td {
+			text-align: center;
+			padding: 10px;
+			border: 1px solid #ccc;
+			font-size: 18px;
+		}
+
+		th {
+			background-color: #355c7d;
+			color: #fff;
+		}
+
+		tr:nth-child(even) {
+			background-color: #f2f2f2;
+		}
+
+		/* Styles for buttons */
+		.edit-button, .delete-button {
+			background-color: #007bff;
+			color: #fff;
+			padding: 5px 10px;
+			border: none;
+			border-radius: 4px;
+			font-size: 16px;
+			cursor: pointer;
+			transition: all 0.3s ease;
+		}
+
+		.edit-button:hover {
+			background-color: #0062cc;
+		}
+
+		.delete-button:hover {
+			background-color: #dc3545;
+		}
+
+		/* Styles for search bar */
+		.search-bar {
+			display: flex;
+			align-items: center;
+			margin-bottom: 20px;
+		}
+
+		.search-bar-input {
+			flex-grow: 1;
+			padding: 10px;
+			font-size: 16px;
+			border: 1px solid #ccc;
+			border-radius: 4px;
+			color: #333;
+		}
+
+		.search-bar-input:focus {
+			border-color: #007bff;
+			box-shadow: 0px 0px 5px #888888;
+		}
+
+		.search-bar-button {
+			background-color: #007bff;
+			color: #fff;
+			padding: 10px 20px;
+			border: none;
+			border-radius: 4px;
+			font-size: 16px;
+			margin-left: 10px;
+			cursor: pointer;
+			transition: all 0.3s ease;
+		}
+
+		.search-bar-button:hover {
+			background-color: #0062cc;
+		}
+
+		.search-bar-results {
+			margin-top: 20px;
+			text-align: center;
+			color: #888;
+		}
+
+		.search-bar-results strong {
+			color: #333;
+		}
+	</style>
+</head>
+<body>
+	<h1>Subject Schedules</h1>
+
+	<div class="container">
+		<h2>Add Subject Schedule</h2>
+		<form>
+			<div class="form-group">
+				<label for="subject" class="form-label">Subject:</label>
+				<input type="text" id="subject" name="subject" class="form-input" required>
+			</div>
+			<div class="form-group">
+				<label for="day" class="form-label">Day:</label>
+				<select id="day" name="day" class="form-input" required>
+					<option value="">-- Select day --</option>
+					<option value="Monday">Monday</option>
+					<option value="Tuesday">Tuesday</option>
+					<option value="Wednesday">Wednesday</option>
+					<option value="Thursday">Thursday</option>
+					<option value="Friday">Friday</option>
+					<option value="Saturday">Saturday</option>
+					<option value="Sunday">Sunday</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<label for="time" class="form-label">Time:</label>
+				<input type="text" id="time" name="time" class="form-input" placeholder="e.g. 8:00 AM - 10:00 AM" required>
+			</div>
+			<div class="form-group">
+				<label for="room" class="form-label">Room:</label>
+				<input type="text" id="room" name="room" class="form-input" required>
+			</div>
+			<div class="form-group">
+				<label for="instructor" class="form-label">Instructor:</label>
+				<input type="text" id="instructor" name="instructor" class="form-input" required>
+			</div>
+			<div class="form-group">
+				<button type="submit" class="form-submit">Save</button>
+			</div>
+		</form>
+
+		<!-- Search bar -->
+		<div class="search-bar">
+			<input type="text" id="search-bar-input" class="search-bar-input" placeholder="Search by day...">
+			<button id="search-bar-button" class="search-bar-button">Search</button>
+		</div>
+
+		<!-- Table to display subject schedules -->
+		<table>
+			<thead>
+				<tr>
+					<th>Subject</th>
+					<th>Day</th>
+					<th>Time</th>
+					<th>Room</th>
+					<th>Instructor</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody id="schedule-table">
+				<!-- Subject schedules dynamically generated here using JavaScript -->
+			</tbody>
+		</table>
+
+		<!-- Search bar results message -->
+		<div id="search-bar-results" class="search-bar-results"></div>
+	</div>
+
+	<script>
+		const form = document.querySelector('form');
+		const tableBody = document.querySelector('#schedule-table');
+		const searchInput = document.querySelector('#search-bar-input');
+		const searchResults = document.querySelector('#search-bar-results');
+
+		// Array to store subject schedules
+		let schedules = [];
+
+		// Function to add new subject schedule to table and array
+		function addSchedule(event) {
+			event.preventDefault();
+
+			// Get form values and create new schedule object
+			const subject = form.subject.value;
+			const day = form.day.value;
+			const time = form.time.value;
+			const room = form.room.value;
+			const instructor = form.instructor.value;
+			const newSchedule = { subject, day, time, room, instructor };
+
+			// Add new schedule object to array
+			schedules.push(newSchedule);
+
+			// Add new schedule to table
+			renderTable();
+
+			// Reset form values
+			form.reset();
+		}
+
+		// Function to render table rows with subject schedules
+		function renderTable() {
+			// Remove existing table rows
+			tableBody.innerHTML = '';
+
+			const searchResultsArray = [];
+
+			// Generate new table rows with data from array
+			schedules.forEach(function(schedule, index) {
+				// Check if schedule matches search query
+				if (searchInput.value !== '' && !schedule.day.toLowerCase().includes(searchInput.value.toLowerCase())) {
+					return;
+				}
+
+				const row = document.createElement('tr');
+				row.innerHTML = `
+					<td>${schedule.subject}</td>
+					<td>${schedule.day}</td>
+					<td>${schedule.time}</td>
+					<td>${schedule.room}</td>
+					<td>${schedule.instructor}</td>
+					<td>
+						<button id="${index}" class="edit-button">Edit</button>
+						<button id="${index}" class="delete-button">Delete</button>
+					</td>
+				`;
+				tableBody.appendChild(row);
+
+				// Add event listeners to edit and delete buttons
+				const editButton = row.querySelector('.edit-button');
+				editButton.addEventListener('click', editSchedule);
+
+				const deleteButton = row.querySelector('.delete-button');
+				deleteButton.addEventListener('click', deleteSchedule);
+
+				// Add schedule to search results array
+				searchResultsArray.push(schedule);
+			});
+
+			// Display number of search results
+			displaySearchResults(searchResultsArray.length);
+		}
+
+		// Function to edit existing subject schedule in table and array
+		function editSchedule(event) {
+			// Get index of schedule in array
+			const index = event.target.id;
+
+			// Get existing schedule object from array
+			const schedule = schedules[index];
+
+			// Pre-fill form with existing schedule values
+			form.subject.value = schedule.subject;
+			form.day.value = schedule.day;
+			form.time.value = schedule.time;
+			form.room.value = schedule.room;
+			form.instructor.value = schedule.instructor;
+
+			// Remove existing schedule from array
+			schedules.splice(index, 1);
+
+			// Re-render table with updated array
+			renderTable();
+		}
+
+		// Function to delete existing subject schedule from table and array
+		function deleteSchedule(event) {
+			// Get index of schedule in array
+			const index = event.target.id;
+
+			// Remove existing schedule from array
+			schedules.splice(index, 1);
+
+			// Re-render table with updated array
+			renderTable();
+		}
+
+		// Function to display number of search results
+		function displaySearchResults(count) {
+			searchResults.innerHTML = '';
+
+			if (count === 0) {
+				searchResults.innerHTML = '<strong>No results found</strong>';
+			} else if (count === 1) {
+				searchResults.innerHTML = '<strong>1 result found</strong>';
+			} else {
+				searchResults.innerHTML = `<strong>${count} results found</strong>`;
+			}
+		}
+
+		// Add event listener to form submit button
+		form.addEventListener('submit', addSchedule);
+
+		// Add event listener to search button
+		document.querySelector('#search-bar-button').addEventListener('click', renderTable);
+
+		// Add event listener to search input
+		searchInput.addEventListener('input', renderTable);
+
+		// Initial table render with data from array
+		renderTable();
+	</script>
+</body>
+</html>
+
+<style>
+    body {
+      background-image: url("https://i0.wp.com/backgroundabstract.com/wp-content/uploads/edd/2021/10/Pastel-Mix-Background-Graphics-10285128-1-1-580x387-1-e1656152839151.png?fit=580%2C387&ssl=1");
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+    </style>
